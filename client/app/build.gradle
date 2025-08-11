@@ -1,0 +1,84 @@
+plugins {
+    id 'com.android.application'
+    id 'com.google.protobuf'
+}
+
+android {
+    namespace 'flwr.android_client'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "flwr.android_client.recommendation"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    
+    androidResources {
+        noCompress 'tflite'
+    }
+    
+    lint {
+        disable 'GoogleAppIndexingWarning', 'HardcodedText', 'InvalidPackage'
+        textOutput file('stdout')
+        textReport true
+    }
+}
+
+protobuf {
+    protoc { artifact = 'com.google.protobuf:protoc:3.24.0' }
+    plugins {
+        grpc { artifact = "io.grpc:protoc-gen-grpc-java:1.58.0" }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java { option 'lite' }
+            }
+            task.plugins {
+                grpc { option 'lite' }
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.10.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'androidx.work:work-runtime:2.8.1'
+    
+    // TensorFlow Lite
+    implementation 'org.tensorflow:tensorflow-lite:2.13.0'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.4.4'
+    implementation 'org.tensorflow:tensorflow-lite-metadata:0.4.4'
+    
+    // gRPC for Flower communication
+    implementation 'io.grpc:grpc-okhttp:1.58.0'
+    implementation 'io.grpc:grpc-protobuf-lite:1.58.0'
+    implementation 'grpc:grpc-stub:1.58.0'
+    
+    // Protobuf
+    implementation 'com.google.protobuf:protobuf-javalite:3.24.0'
+    
+    // Transfer API
+    implementation project(':transfer_api')
+    
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
