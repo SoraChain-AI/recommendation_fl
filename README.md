@@ -184,4 +184,4 @@ Contributions are welcome! Please feel free to submit issues, feature requests, 
 
 ## 📄 License
 
-This project follows the same license as the Flower framework.
+This project follows the same license as the SoraChain Framework.
