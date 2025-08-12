@@ -1,6 +1,6 @@
 # Recommendation Model Federated Learning for Android
 
-This project implements federated learning for a recommendation model using the Flower framework, specifically designed for Android devices. It allows multiple Android clients to collaboratively train a recommendation model without sharing raw user data.
+This project implements federated learning for a recommendation model, specifically designed for Android devices. It allows multiple Android clients to collaboratively train a recommendation model without sharing raw user data.
 
 ## 🏗️ Project Structure
 
@@ -174,7 +174,6 @@ The recommendation model processes:
 
 ## 📚 References
 
-- [Flower Framework](https://flower.dev/)
 - [TensorFlow Lite](https://www.tensorflow.org/lite)
 - [Android WorkManager](https://developer.android.com/topic/libraries/architecture/workmanager)
 - [Federated Learning](https://ai.googleblog.com/2017/04/federated-learning-collaborative.html)
